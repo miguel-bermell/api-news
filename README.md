@@ -1,23 +1,38 @@
 # Express MongoDB API
 
-## Instalación
-* Modificar el archivo .env y añadir tus credenciales
+## Installation
+Use NPM in order to install everything the app needs.
 
 ```bash
 npm install
 ```
 
-## Ejecutar tests
+**Rename `.env_template` to `.env` and add your credentials**
 
-`npm run test` o `npm run test:watch`
+## Running tests
+
+Run `npm run test` 
+
+If you want watch mode: `npm run test:watch`
 
 ## Linter
 
-He utilizado el linter [standardjs](https://standardjs.com/)
+Code formatter [standardjs](https://standardjs.com/)
 
-* `Seed` Cargar datos en la Base de datos
+## Seeds
+
+Load predefined news in DB
   ```sh
   npm run seed:news
   ```
+
+## Docker
+
+If you want to run the app in docker:
+
+```bash
+ docker-compose up -d --build
+```
+
 
   
