@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/index.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon src/index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon --legacy-watch src/index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --silent",
     "test:watch": "npm run test -- --watch",
     "seed:news": "cross-env NODE_ENV=development node src/utils/newsSeed.js"
