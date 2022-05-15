@@ -28,7 +28,4 @@ services:
       
       volumes:
           - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-
-volumes:
-  mongodbdata:
-    driver: local
+          - ~/mongo/data:/data/db
