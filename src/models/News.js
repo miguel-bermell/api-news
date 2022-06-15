@@ -28,6 +28,10 @@ const newsSchema = new Schema(
     image: {
       type: String,
       default: null
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     }
   },
   { timestamps: { createdAt: 'date', updatedAt: 'updatedAt' } }

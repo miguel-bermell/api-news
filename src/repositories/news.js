@@ -14,7 +14,8 @@ exports.createNewNews = async (news) => {
     title: news.title,
     description: news.description,
     content: news.content,
-    image: news.image
+    image: news.image,
+    user: news.user
   })
 
   return await newNews.save()

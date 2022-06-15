@@ -21,7 +21,8 @@ const VALIDATION_MESSAGES = Object.freeze({
   NEWS_NOT_FOUND: 'News not found',
   NEWS_REQUIRED: 'News is required',
   STANDARD_ERROR: 'Something went wrong',
-  NEWS_ALREADY_ARCHIVED: 'News already archived'
+  NEWS_ALREADY_ARCHIVED: 'News already archived',
+  USER_EXIST_ERROR: 'User already exists'
 })
 
 module.exports = {

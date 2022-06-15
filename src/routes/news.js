@@ -7,16 +7,10 @@ const {
   AddNews,
   ArchiveNews,
   DeleteNews,
-  UpdateNews,
-  AllArchivedNews,
-  NewsNotArchived
+  UpdateNews
 } = require('../controllers/news')
 
 router.get('/', AllNews)
-
-router.get('/archive', AllArchivedNews)
-
-router.get('/not-archived', NewsNotArchived)
 
 router.get('/:id', FindNewsById)
 

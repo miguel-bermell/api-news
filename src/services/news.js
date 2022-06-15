@@ -1,12 +1,20 @@
+const { existsSync, unlinkSync } = require('fs')
+const path = require('path')
 const newsRespository = require('../repositories/news')
 const HttpError = require('../utils/httpError')
 const { VALIDATION_MESSAGES } = require('../utils/constants')
+const User = require('../models/User')
 
-exports.getAllNews = async () => await newsRespository.findAllNews()
+exports.getAllNews = async (newsType = null) => {
+  if (!newsType) return await newsRespository.findAllNews()
 
-exports.getAllNewsNotArchived = async () => await newsRespository.findNewsNotArchived()
+  const types = {
+    archived: newsRespository.findAllArchivedNews,
+    notArchived: newsRespository.findNewsNotArchived
+  }
 
-exports.getAllArchivedNews = async () => await newsRespository.findAllArchivedNews()
+  return await types[newsType]()
+}
 
 exports.addNewNews = async (news, image) => {
   const validationErrors = {
@@ -22,13 +30,18 @@ exports.addNewNews = async (news, image) => {
     }
   })
 
-  const newsData = { ...news }
+  const user = await User.findById(news.userId)
+
+  const newsData = { ...news, user: user._id }
 
   if (image) {
-    newsData.image = `${process.env.APP_URL}/uploads/${image.filename}`
+    newsData.image = `${process.env.API_URL}/uploads/${image.filename}`
   }
 
-  return await newsRespository.createNewNews(newsData)
+  const savedNews = await newsRespository.createNewNews(newsData)
+  user.news = user.news.concat(savedNews._id)
+  await user.save()
+  return savedNews
 }
 
 exports.findNewsById = async (id) => {
@@ -58,6 +71,15 @@ exports.removeNews = async (id) => {
   const news = await newsRespository.findNewsById(id)
 
   if (!news) throw new HttpError(404, VALIDATION_MESSAGES.NEWS_NOT_FOUND)
+
+  if (news.image) {
+    const [, imagePath] = news.image.split('/uploads/')
+    const removeImagePath = imagePath && path.join(__dirname, '../public/uploads/', imagePath)
+
+    if (existsSync(removeImagePath)) {
+      unlinkSync(removeImagePath)
+    }
+  }
 
   return await newsRespository.deleteNews(id)
 }

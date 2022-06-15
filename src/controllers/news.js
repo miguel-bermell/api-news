@@ -3,26 +3,9 @@ const { success } = require('../utils/apiResponse')
 
 exports.AllNews = async (req, res, next) => {
   try {
-    const results = await newsService.getAllNews()
+    const { newsType } = req.query
+    const results = await newsService.getAllNews(newsType)
     res.status(200).json(success('All news loaded successfully', results, res.statusCode))
-  } catch (error) {
-    next(error)
-  }
-}
-
-exports.NewsNotArchived = async (req, res, next) => {
-  try {
-    const results = await newsService.getAllNewsNotArchived()
-    res.status(200).json(success('All news not archived loaded successfully', results, res.statusCode))
-  } catch (error) {
-    next(error)
-  }
-}
-
-exports.AllArchivedNews = async (req, res, next) => {
-  try {
-    const results = await newsService.getAllArchivedNews()
-    res.status(200).json(success('All archived news loaded successfully', results, res.statusCode))
   } catch (error) {
     next(error)
   }
