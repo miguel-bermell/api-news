@@ -32,6 +32,7 @@ exports.updateNews = async (id, news) => {
     description: news.description,
     author: news.author,
     content: news.content,
+    liked: news.liked,
     image: news.image
   }
 

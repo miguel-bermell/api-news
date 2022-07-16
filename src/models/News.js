@@ -29,6 +29,10 @@ const newsSchema = new Schema(
       type: String,
       default: null
     },
+    liked: {
+      type: Boolean,
+      default: false
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User'
