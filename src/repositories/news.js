@@ -1,12 +1,14 @@
-const News = require('../models/News')
+const News = require('../models/News');
 
-exports.findAllNews = async () => await News.find({ }).sort({ date: -1 })
+exports.findAllNews = async () => await News.find({ }).sort({ date: -1 });
 
-exports.findNewsNotArchived = async () => await News.find({ archiveDate: { $eq: null } }).sort({ date: -1 })
+exports.findNewsNotArchived = async () => await News.find({ archiveDate: { $eq: null } })
+  .sort({ date: -1 });
 
-exports.findNewsById = async (id) => await News.findById(id)
+exports.findNewsById = async (id) => await News.findById(id);
 
-exports.findAllArchivedNews = async () => await News.find({ archiveDate: { $ne: null } }).sort({ archiveDate: -1 })
+exports.findAllArchivedNews = async () => await News.find({ archiveDate: { $ne: null } })
+  .sort({ archiveDate: -1 });
 
 exports.createNewNews = async (news) => {
   const newNews = new News({
@@ -15,16 +17,19 @@ exports.createNewNews = async (news) => {
     description: news.description,
     content: news.content,
     image: news.image,
-    user: news.user
-  })
+    user: news.user,
+  });
 
-  return await newNews.save()
-}
+  return await newNews.save();
+};
 
 exports.archiveNews = async (news) => {
-  news.archiveDate = new Date()
-  return await news.save()
-}
+  const newsArchived = {
+    ...news,
+    archiveDate: new Date(),
+  };
+  return await newsArchived.save();
+};
 
 exports.updateNews = async (id, news) => {
   const newNewsEdited = {
@@ -33,10 +38,10 @@ exports.updateNews = async (id, news) => {
     author: news.author,
     content: news.content,
     liked: news.liked,
-    image: news.image
-  }
+    image: news.image,
+  };
 
-  return await News.findByIdAndUpdate(id, newNewsEdited, { new: true })
-}
+  return await News.findByIdAndUpdate(id, newNewsEdited, { new: true });
+};
 
-exports.deleteNews = async (id) => await News.findByIdAndDelete(id)
+exports.deleteNews = async (id) => await News.findByIdAndDelete(id);

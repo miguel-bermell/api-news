@@ -1,3 +1,3 @@
-module.exports = (req, res, next) => {
-  res.status(404).end()
-}
+module.exports = (req, res) => {
+  res.status(404).end();
+};

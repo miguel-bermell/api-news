@@ -1,25 +1,25 @@
-require('dotenv').config()
-require('./config/mongo')
-const path = require('path')
-const express = require('express')
-const app = express()
-const cors = require('cors')
+require('dotenv').config();
+require('./config/mongo');
+const path = require('path');
+const express = require('express');
 
-const { health, news, user } = require('./routes')
-const { notFound, errorHandler } = require('./middlewares')
+const app = express();
+const cors = require('cors');
 
-app.use(cors())
-app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')))
+const routes = require('./routes');
+const { notFound, errorHandler } = require('./middlewares');
+const logger = require('./utils/logger');
 
-app.use('/', health)
-app.use('/news', news)
-app.use('/user', user)
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(notFound)
-app.use(errorHandler)
+app.use(routes);
+app.use(notFound);
+app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000
-const server = app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+const PORT = process.env.PORT || 3000;
 
-module.exports = { app, server }
+const server = app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+
+module.exports = { app, server };

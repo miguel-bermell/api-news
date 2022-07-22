@@ -1,13 +1,13 @@
 // Environment
-const TEST = 'test'
+const TEST = 'test';
 
 // mongoose
 const CONNECTION = Object.freeze({
   0: 'disconnected',
   1: 'connected',
   2: 'connecting',
-  3: 'disconnecting'
-})
+  3: 'disconnecting',
+});
 
 // validation messages
 const VALIDATION_MESSAGES = Object.freeze({
@@ -22,11 +22,12 @@ const VALIDATION_MESSAGES = Object.freeze({
   NEWS_REQUIRED: 'News is required',
   STANDARD_ERROR: 'Something went wrong',
   NEWS_ALREADY_ARCHIVED: 'News already archived',
-  USER_EXIST_ERROR: 'User already exists'
-})
+  USER_EXIST_ERROR: 'User already exists',
+  USER_INVALID_ID: 'Invalid user ID',
+});
 
 module.exports = {
   TEST,
   CONNECTION,
-  VALIDATION_MESSAGES
-}
+  VALIDATION_MESSAGES,
+};

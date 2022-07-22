@@ -1,5 +1,5 @@
-const { multer, storage, fileFilter } = require('../config/multer')
+const { multer, storage, fileFilter } = require('../config/multer');
 
-const upload = multer({ storage, fileFilter })
+const upload = multer({ storage, fileFilter });
 
-exports.upload = upload.single('image')
+exports.upload = upload.single('image');

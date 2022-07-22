@@ -1,5 +1,13 @@
-const health = require('./health')
-const news = require('./news')
-const user = require('./user')
+const express = require('express');
 
-module.exports = { health, news, user }
+const health = require('./health');
+const news = require('./news');
+const user = require('./user');
+
+const router = express.Router();
+
+router.use('/', health);
+router.use('/news', news);
+router.use('/user', user);
+
+module.exports = router;

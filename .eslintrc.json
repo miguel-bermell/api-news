@@ -1,0 +1,17 @@
+{
+  "parserOptions": {
+    "sourceType": "script",
+    "ecmaVersion": 2022
+  },
+  "extends":[
+    "airbnb-base"
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "no-return-await": 0,
+    "consistent-return": 0,
+    "prefer-destructuring": 1
+  }
+}

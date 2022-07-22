@@ -1,10 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
 
-const { AllUsers, Signup } = require('../controllers/user')
+const router = express.Router();
+const { validateRequest } = require('../middlewares');
 
-router.get('/', AllUsers)
+const { AllUsers, Signup } = require('../controllers/user');
+const { USER } = require('../enums/validations');
 
-router.post('/', Signup)
+router.get('/', AllUsers);
 
-module.exports = router
+router.post('/', validateRequest(USER), Signup);
+
+module.exports = router;
