@@ -1,6 +1,7 @@
 const { failure } = require('../utils/apiResponse');
 
-const errorHandler = (error, req, res) => {
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (error, req, res, _next) => {
   const status = error.statusCode ?? 500;
   if (error.name === 'CastError') {
     return res.status(400).json(failure('Invalid ID', res.statusCode));

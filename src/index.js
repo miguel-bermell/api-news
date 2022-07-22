@@ -5,10 +5,10 @@ const express = require('express');
 
 const app = express();
 const cors = require('cors');
+const logger = require('./utils/logger');
 
 const routes = require('./routes');
 const { notFound, errorHandler } = require('./middlewares');
-const logger = require('./utils/logger');
 
 app.use(cors());
 app.use(express.json());
