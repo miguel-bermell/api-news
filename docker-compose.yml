@@ -3,11 +3,12 @@ version: '3.7'
 services:
   app:
     build:
-      context: ./
+      context: .
+      dockerfile: Dockerfile
     image: news-api
     env_file: .env
     volumes:
-      - .:/src
+      - .:/home/app
     container_name: news-back
     ports:
       - "3000:3000"

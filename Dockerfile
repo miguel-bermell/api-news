@@ -1,10 +1,11 @@
 FROM node:16-alpine
 
-WORKDIR /src
+RUN mkdir -p /home/app
+WORKDIR /home/app
 COPY package*.json .
-EXPOSE 3000
+RUN npm i -g nodemon && npm i
 
 ENV NODE_ENV=development
-RUN npm i -g nodemon && npm i
-COPY . /
+
+EXPOSE 3000
 CMD ["npm", "run", "start:dev"]
