@@ -1,12 +1,21 @@
 const mongoose = require('mongoose');
 const { server } = require('../index');
 const News = require('../models/News');
-const { api, initialNews, getAllNews } = require('./helpers');
+const User = require('../models/User');
+const {
+  api, initialNews, getAllNews, createUser,
+} = require('./helpers');
 
+let userId;
+
+beforeAll(async () => {
+  await User.deleteMany({});
+  const { data: { id } } = await createUser();
+  userId = id;
+});
 beforeEach(async () => {
   await News.deleteMany({});
-
-  const newNews = initialNews.map((news) => new News(news));
+  const newNews = initialNews.map((news) => new News({ ...news, user: userId }));
   const saveNews = newNews.map((news) => news.save());
   await Promise.all(saveNews);
 });
@@ -44,6 +53,7 @@ describe('Create news', () => {
       description: 'Description 2',
       content: 'Content 2',
       author: 'Author 2',
+      userId,
     };
     await api
       .post('/news')
@@ -61,12 +71,14 @@ describe('Create news', () => {
     const newNews = {
       title: '',
       description: '',
+      content: '',
+      userId,
     };
 
     await api
       .post('/news')
       .send(newNews)
-      .expect(400)
+      .expect(422)
       .expect('Content-Type', /application\/json/);
 
     const { response } = await getAllNews();

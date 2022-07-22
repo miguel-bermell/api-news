@@ -21,6 +21,17 @@ const initialNews = [
   },
 ];
 
+const createUser = async () => {
+  const response = await api.post('/user').send({
+    name: 'Juan Pablo',
+    email: 'test-test-50@test.com',
+    password: 'test123Test',
+  });
+  return {
+    data: response.body.data,
+  };
+};
+
 const getAllNews = async () => {
   const response = await api.get('/news');
   return {
@@ -33,4 +44,5 @@ module.exports = {
   api,
   initialNews,
   getAllNews,
+  createUser,
 };
