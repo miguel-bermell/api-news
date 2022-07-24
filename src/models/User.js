@@ -35,7 +35,11 @@ const userSchema = new Schema(
 );
 
 userSchema.set('toJSON', {
-  transform: (document, returnedObject) => objectSanitized(returnedObject),
+  transform: (document, returnedObject) => {
+    const objSanitized = objectSanitized(returnedObject);
+    const { password, ...rest } = objSanitized;
+    return rest;
+  },
 });
 
 const User = model('User', userSchema);

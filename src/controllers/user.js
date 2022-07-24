@@ -10,6 +10,16 @@ exports.AllUsers = async (req, res, next) => {
   }
 };
 
+exports.getById = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const results = await userService.getById(id);
+    res.status(200).json(success('User loaded successfully', results, res.statusCode));
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.Signup = async (req, res, next) => {
   try {
     const newUser = await userService.addNewUser(req.body);

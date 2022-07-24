@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 const { server } = require('../index');
 const News = require('../models/News');
 const User = require('../models/User');
@@ -44,6 +45,12 @@ describe('Get all news', () => {
 
     expect(response.status).toBe(200);
   });
+
+  test('should respond with an array of news', async () => {
+    const { response } = await getAllNews();
+
+    expect(response.body.data).toBeInstanceOf(Array);
+  });
 });
 
 describe('Create news', () => {
@@ -85,6 +92,23 @@ describe('Create news', () => {
 
     expect(response.body.data).toHaveLength(initialNews.length);
   });
+
+  test('is not possible with an invalid `userId`', async () => {
+    const newNews = {
+      title: 'News 2',
+      description: 'Description 2',
+      author: 'Author 2',
+      content: 'Content 2',
+      userId: uuidv4(),
+    };
+
+    const response = await api
+      .post('/news')
+      .send(newNews)
+      .expect(400)
+      .expect('Content-Type', /application\/json/);
+    expect(response.body.success).toBe(false);
+  });
 });
 
 describe('delete news', () => {
@@ -102,13 +126,14 @@ describe('delete news', () => {
   });
 
   test('is not possible with an invalid news id', async () => {
-    await api
+    const deleteResponse = await api
       .delete('/news/123')
       .expect(400)
       .expect('Content-Type', /application\/json/);
+    expect(deleteResponse.body.success).toBe(false);
+    expect(deleteResponse.body.message).toBe('Invalid ID');
 
     const { response } = await getAllNews();
-
     expect(response.body.data).toHaveLength(initialNews.length);
   });
 });

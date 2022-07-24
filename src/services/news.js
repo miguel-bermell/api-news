@@ -31,7 +31,6 @@ exports.addNewNews = async (news, image) => {
   });
 
   const user = await User.findById(news.userId);
-  if (!user) throw new HttpError(404, VALIDATION_MESSAGES.USER_INVALID_ID);
   const { _id } = user;
   const newsData = { ...news, user: _id };
 

@@ -4,6 +4,12 @@ const { VALIDATION_MESSAGES } = require('../utils/constants');
 
 exports.getAllUsers = async () => await userRepository.getUsers();
 
+exports.findUserById = async (id) => {
+  const user = await userRepository.findUserByResource({ id });
+  if (!user) throw new HttpError(400, VALIDATION_MESSAGES.USER_INVALID_ID);
+  return user;
+};
+
 exports.addNewUser = async ({ email, password, name }) => {
   const user = await userRepository.findUserByResource({ email });
 
