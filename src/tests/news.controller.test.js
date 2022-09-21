@@ -68,7 +68,7 @@ describe('News controller', () => {
       ...expectedResponse({ data: fakeNews[0] }),
     });
     const logger = jest.spyOn(mockLogger, 'info');
-    console.log(logger.mock);
+    expect(logger).toBeCalledWith('success');
   });
 
   test('findNewsById is not possible with an invalid id', async () => {
