@@ -1,6 +1,7 @@
 const { FindNewsById } = require('../controllers/news');
 const { findNewsById: mockFindNewsById } = require('../services/news');
 const HttpError = require('../utils/httpError');
+const mockLogger = require('../utils/logger');
 
 jest.mock('../services/news');
 
@@ -51,6 +52,7 @@ mockFindNewsById.mockImplementation(newsServiceStub);
 describe('News controller', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockLogger.info = jest.fn();
   });
 
   test('findNewsById is possible with a valid id', async () => {
@@ -65,6 +67,8 @@ describe('News controller', () => {
     expect(res.json).toHaveBeenCalledWith({
       ...expectedResponse({ data: fakeNews[0] }),
     });
+    const logger = jest.spyOn(mockLogger, 'info');
+    console.log(logger.mock);
   });
 
   test('findNewsById is not possible with an invalid id', async () => {

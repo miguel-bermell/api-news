@@ -1,5 +1,6 @@
 const newsService = require('../services/news');
 const { success } = require('../utils/apiResponse');
+const logger = require('../utils/logger');
 
 exports.AllNews = async (req, res, next) => {
   try {
@@ -15,6 +16,7 @@ exports.FindNewsById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const news = await newsService.findNewsById(id);
+    logger.info('success');
     res.status(200).json(success('News loaded successfully', news, res.statusCode));
   } catch (error) {
     next(error);
