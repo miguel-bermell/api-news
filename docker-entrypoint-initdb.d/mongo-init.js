@@ -1,21 +1,19 @@
-/* eslint-disable no-undef */
-// eslint-disable-next-line no-undef
-print('Start creating database ##########################')
-db = db.getSiblingDB('miguel_db_test')
+print('Start creating database ##########################');
+db = db.getSiblingDB('miguel_db_test');
 db.createUser(
   {
     user: 'root',
     pwd: 'root',
-    roles: [{ role: 'readWrite', db: 'miguel_db_test' }]
-  }
-)
+    roles: [{ role: 'readWrite', db: 'miguel_db_test' }],
+  },
+);
 
-db = db.getSiblingDB('miguel_db')
+db = db.getSiblingDB('miguel_db');
 db.createUser(
   {
     user: 'root',
     pwd: 'root',
-    roles: [{ role: 'readWrite', db: 'miguel_db' }]
-  }
-)
-print('End creating database ##########################')
+    roles: [{ role: 'readWrite', db: 'miguel_db' }],
+  },
+);
+print('End creating database ##########################');

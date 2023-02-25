@@ -14,5 +14,6 @@
     "consistent-return": 0,
     "prefer-destructuring": 1,
     "linebreak-style": 0
-  }
+  },
+  "ignorePatterns": ["docker-entrypoint-initdb.d/"]
 }
